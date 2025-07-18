@@ -34,7 +34,7 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          unityVersion: 6000.0.47f1
+          unityVersion: 6000.0.51f1
           targetPlatform: StandaloneWindows64
 
       - name: Upload Build Artifact
@@ -55,9 +55,6 @@ jobs:
           fetch-depth: 0
           lfs: true
 
-      - name: Check for Unity Project Root
-        run: ls -R ./QA2Proj
-
       - name: Cache Library folder
         uses: actions/cache@v3
         with:
@@ -74,7 +71,7 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          unityVersion: 6000.0.43f1
+          unityVersion: 6000.0.51f1
           testMode: PlayMode
           # The path where test results will be generated
           artifactsPath: artifacts/TestResults/Playmode
