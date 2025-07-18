@@ -36,7 +36,7 @@ jobs:
         with:
           unityVersion: 6000.0.47f1
           targetPlatform: StandaloneWindows64
-          projectPath: 'QA2Proj'
+          projectPath: ./QA2Proj
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
@@ -56,8 +56,8 @@ jobs:
           fetch-depth: 0
           lfs: true
 
-      - name: Show project structure
-        run: ls -R
+      - name: Check for Unity Project Root
+        run: ls -R ./QA2Proj
 
       - name: Cache Library folder
         uses: actions/cache@v3
@@ -77,7 +77,7 @@ jobs:
         with:
           unityVersion: 6000.0.43f1
           testMode: PlayMode
-          projectPath: QA2Proj
+          projectPath: ./QA2Proj
           # The path where test results will be generated
           artifactsPath: artifacts/TestResults/Playmode
 
