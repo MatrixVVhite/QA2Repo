@@ -55,9 +55,6 @@ jobs:
           fetch-depth: 0
           lfs: true
 
-      - name: Check for Unity Project Root
-        run: ls -R ./QA2Proj
-
       - name: Cache Library folder
         uses: actions/cache@v3
         with:
