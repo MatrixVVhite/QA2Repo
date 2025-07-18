@@ -19,7 +19,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: Library
-          key: Library-StandaloneWindows64-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          key: Library-StandaloneWindows64-${{ hashFiles('QA2Proj/Assets/**', 'QA2Proj/Packages/**', 'QA2Proj/ProjectSettings/**') }}
           restore-keys: |
             Library-StandaloneWindows64-
             Library-
@@ -36,6 +36,7 @@ jobs:
         with:
           unityVersion: 6000.0.47f1
           targetPlatform: StandaloneWindows64
+          projectPath: 'QA2Proj'
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
@@ -59,7 +60,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: Library
-          key: Library-PlaymodeTests-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          key: Library-PlaymodeTests-${{ hashFiles('QA2Proj/Assets/**', 'QA2Proj/Packages/**', 'QA2Proj/ProjectSettings/**') }}
           restore-keys: |
             Library-PlaymodeTests-
             Library-
@@ -73,6 +74,7 @@ jobs:
         with:
           unityVersion: 6000.0.43f1
           testMode: PlayMode
+          projectPath: 'QA2Proj'
           # The path where test results will be generated
           artifactsPath: artifacts/TestResults/Playmode
 
