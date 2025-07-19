@@ -1,0 +1,95 @@
+name: Unity Test and Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    name: Run Play Mode Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Cache Library
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-${{ runner.os }}-${{ hashFiles('**/*.cs') }}
+          restore-keys: |
+            Library-${{ runner.os }}-
+
+      - name: Setup Unity
+        uses: game-ci/unity-actions/setup@v3
+        with:
+          unityVersion: 6000.0.51f1
+
+      - name: Activate Unity
+        uses: game-ci/unity-actions/activate@v3
+        with:
+          unityVersion: 6000.0.51f1
+          username: ${{ secrets.UNITY_EMAIL }}
+          password: ${{ secrets.UNITY_PASSWORD }}
+          license: ${{ secrets.UNITY_LICENSE }}
+
+      - name: Run Play Mode Tests
+        uses: game-ci/unity-actions/test@v3
+        with:
+          unityVersion: 6000.0.51f1
+          testMode: playmode
+          projectPath: .
+          artifactsPath: test-results
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: PlayMode-Test-Results
+          path: test-results
+
+  build:
+    name: Build Project (Windows 64-bit)
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Cache Library
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-${{ runner.os }}-${{ hashFiles('**/*.cs') }}
+          restore-keys: |
+            Library-${{ runner.os }}-
+
+      - name: Setup Unity
+        uses: game-ci/unity-actions/setup@v3
+        with:
+          unityVersion: 6000.0.51f1
+
+      - name: Activate Unity
+        uses: game-ci/unity-actions/activate@v3
+        with:
+          unityVersion: 6000.0.51f1
+          username: ${{ secrets.UNITY_EMAIL }}
+          password: ${{ secrets.UNITY_PASSWORD }}
+          license: ${{ secrets.UNITY_LICENSE }}
+
+      - name: Build Project
+        uses: game-ci/unity-actions/build@v3
+        with:
+          unityVersion: 6000.0.51f1
+          targetPlatform: StandaloneWindows64
+          projectPath: .
+          buildPath: build/windows
+
+      - name: Upload Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: UnityBuild-Windows64
+          path: build/windows
