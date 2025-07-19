@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - master
   pull_request:
 
 jobs:
@@ -24,12 +25,12 @@ jobs:
             Library-${{ runner.os }}-
 
       - name: Setup Unity
-        uses: game-ci/unity-actions/setup@v3
+        uses: game-ci/unity-setup@v2
         with:
           unityVersion: 6000.0.51f1
 
       - name: Activate Unity
-        uses: game-ci/unity-actions/activate@v3
+        uses: game-ci/unity-activate@v2
         with:
           unityVersion: 6000.0.51f1
           username: ${{ secrets.UNITY_EMAIL }}
@@ -37,7 +38,7 @@ jobs:
           license: ${{ secrets.UNITY_LICENSE }}
 
       - name: Run Play Mode Tests
-        uses: game-ci/unity-actions/test@v3
+        uses: game-ci/unity-test@v2
         with:
           unityVersion: 6000.0.51f1
           testMode: playmode
@@ -68,12 +69,12 @@ jobs:
             Library-${{ runner.os }}-
 
       - name: Setup Unity
-        uses: game-ci/unity-actions/setup@v3
+        uses: game-ci/unity-setup@v2
         with:
           unityVersion: 6000.0.51f1
 
       - name: Activate Unity
-        uses: game-ci/unity-actions/activate@v3
+        uses: game-ci/unity-activate@v2
         with:
           unityVersion: 6000.0.51f1
           username: ${{ secrets.UNITY_EMAIL }}
@@ -81,7 +82,7 @@ jobs:
           license: ${{ secrets.UNITY_LICENSE }}
 
       - name: Build Project
-        uses: game-ci/unity-actions/build@v3
+        uses: game-ci/unity-builder@v2
         with:
           unityVersion: 6000.0.51f1
           targetPlatform: StandaloneWindows64
